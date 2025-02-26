@@ -36,10 +36,10 @@ public class EmployeePayRollController {
         return  new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.OK);
 
     }
-    @PutMapping("/update")
-    public ResponseEntity<ResponseDTO> updateEmployee(@RequestBody Employee emp){
+    @PutMapping("/update{empId}")
+    public ResponseEntity<ResponseDTO> updateEmployee(@PathVariable ("empId") int empId,@RequestBody Employee emp){
         EmployeePayRollData empData=null;
-        empData=employeePayRollService.updateEmployeePayRollData(emp);
+        empData=employeePayRollService.updateEmployeePayRollData(empId,emp);
         ResponseDTO responseDTO=new ResponseDTO("Updated Employee Payroll Data Successful",empData);
         return  new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.OK);
 

@@ -6,29 +6,29 @@ import com.bridgelabz.employeepayrollapp.controller.*;
 import java.util.*;
 @Service
 public class EmployeePayRollService implements InterfaceEmployeePayRollService{
+    List<EmployeePayRollData> employeeList=new ArrayList<>();
     public List<EmployeePayRollData> getEmployeePayRollData(){
-        List<EmployeePayRollData> empDataList=new ArrayList<>();
-        empDataList.add(new EmployeePayRollData(1,new Employee("Pankaj",30000)));
-        return empDataList;
+        return employeeList;
     }
     public EmployeePayRollData getEmployeePayRollDataById(int empId){
-        EmployeePayRollData empData=null;
-        empData=new EmployeePayRollData(2,new Employee("Kishore",35000));
-        return empData;
+        return employeeList.get(empId-1);
 
     }
     public EmployeePayRollData createEmployeePayRollData(Employee emp){
         EmployeePayRollData empData=null;
-        empData=new EmployeePayRollData(3,emp);
+        empData=new EmployeePayRollData(employeeList.size()+1,emp);
+        employeeList.add(empData);
         return empData;
     }
-    public EmployeePayRollData updateEmployeePayRollData(Employee emp){
-        EmployeePayRollData empData=null;
-        empData=new EmployeePayRollData(1,emp);
-        return empData;
+    public EmployeePayRollData updateEmployeePayRollData(int empId,Employee emp){
+       EmployeePayRollData empData=this.getEmployeePayRollDataById(empId);
+       empData.setName(emp.name);
+       empData.setSalary(emp.salary);
+       employeeList.set(empId-1,empData);
+       return empData;
     }
     public void deleteEmployeePayRollData(int empId){
-
+        employeeList.remove(empId-1);
     }
 
 }

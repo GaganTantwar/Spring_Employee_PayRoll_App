@@ -7,7 +7,7 @@ public interface InterfaceEmployeePayRollService {
     List<EmployeePayRollData> getEmployeePayRollData();
     EmployeePayRollData getEmployeePayRollDataById(int empId);
     EmployeePayRollData createEmployeePayRollData(Employee emp);
-    EmployeePayRollData updateEmployeePayRollData(Employee emp);
+    EmployeePayRollData updateEmployeePayRollData(int empId,Employee emp);
     void deleteEmployeePayRollData(int empId);
 
 }
