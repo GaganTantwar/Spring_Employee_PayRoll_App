@@ -21,7 +21,7 @@ public @Data class EmployeePayRollData {
         this.salary=employee.salary;
         this.gender=employee.gender;
         this.note=employee.note;
-        this.startDate=LocalDate.parse(employee.startDate);
+        this.startDate=employee.startDate;
         this.profilePic=employee.profilePic;
         this.departments=employee.department;
     }
