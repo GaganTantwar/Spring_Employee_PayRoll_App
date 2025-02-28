@@ -1,4 +1,5 @@
 package com.bridgelabz.employeepayrollapp.exceptions;
+import com.bridgelabz.employeepayrollapp.model.Employee;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -17,6 +18,11 @@ public class EmployeePayRollExceptionHandler {
         List<ObjectError> errorList=exception.getBindingResult().getAllErrors();
         List<String>errMsg=errorList.stream().map(objectError ->objectError.getDefaultMessage()).collect(Collectors.toList());
         ResponseDTO responseDTO=new ResponseDTO("Exception While Processing REST Request",errMsg);
-        return  new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+        return  new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(EmployeePayRollException.class)
+    public ResponseEntity<ResponseDTO> handleEmployeePayRollException(EmployeePayRollException exception){
+        ResponseDTO responseDTO=new ResponseDTO("Exception while processing REST Request",exception.getMessage());
+        return new ResponseEntity<ResponseDTO>(responseDTO,HttpStatus.BAD_REQUEST);
     }
 }
