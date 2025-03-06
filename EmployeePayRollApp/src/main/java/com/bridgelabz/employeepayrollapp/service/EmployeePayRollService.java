@@ -15,12 +15,19 @@ public class EmployeePayRollService implements InterfaceEmployeePayRollService{
      private EmployeePayRollRepository employeePayRollRepository;
 
     List<EmployeePayRollData> employeeList=new ArrayList<>();
+    @Override
     public List<EmployeePayRollData> getEmployeePayRollData(){
         return employeePayRollRepository.findAll();
     }
+    @Override
     public EmployeePayRollData getEmployeePayRollDataById(int empId){
         return employeePayRollRepository.findById(empId).orElseThrow(() -> new EmployeePayRollException("Employee With empId"+empId+"does not exists"));
     }
+    @Override
+    public List<EmployeePayRollData> getEmployeePayRollDataByDepartment(String department){
+        return employeePayRollRepository.findEmployeeByDepartment(department);
+    }
+    @Override
     public EmployeePayRollData createEmployeePayRollData(Employee emp){
         EmployeePayRollData empData=null;
         empData=new EmployeePayRollData(emp);
@@ -28,11 +35,13 @@ public class EmployeePayRollService implements InterfaceEmployeePayRollService{
         employeeList.add(empData);
         return employeePayRollRepository.save(empData);
     }
+    @Override
     public EmployeePayRollData updateEmployeePayRollData(int empId,Employee emp){
        EmployeePayRollData empData=this.getEmployeePayRollDataById(empId);
        empData.updateEmployeePayRollData(emp);
        return employeePayRollRepository.save(empData);
     }
+    @Override
     public void deleteEmployeePayRollData(int empId){
         EmployeePayRollData empData=this.getEmployeePayRollDataById(empId);
         employeePayRollRepository.delete(empData);
