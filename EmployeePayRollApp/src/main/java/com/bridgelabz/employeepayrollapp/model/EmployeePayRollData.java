@@ -23,6 +23,8 @@ public @Data class EmployeePayRollData {
     @CollectionTable(name="employee_department",joinColumns = @JoinColumn(name="id"))
     @Column(name="department")
     private List<String>departments;
+    public EmployeePayRollData() {}
+
     public EmployeePayRollData(Employee emp){this.updateEmployeePayRollData(emp);}
 
     public void updateEmployeePayRollData(Employee employee){

@@ -16,12 +16,10 @@ public class EmployeePayRollService implements InterfaceEmployeePayRollService{
 
     List<EmployeePayRollData> employeeList=new ArrayList<>();
     public List<EmployeePayRollData> getEmployeePayRollData(){
-        return employeeList;
+        return employeePayRollRepository.findAll();
     }
     public EmployeePayRollData getEmployeePayRollDataById(int empId){
-
-        return employeeList.stream().filter(empData->empData.getEmployeeID()==empId).findFirst().orElseThrow(()->new EmployeePayRollException("Employee Not Found"));
-
+        return employeePayRollRepository.findById(empId).orElseThrow(() -> new EmployeePayRollException("Employee With empId"+empId+"does not exists"));
     }
     public EmployeePayRollData createEmployeePayRollData(Employee emp){
         EmployeePayRollData empData=null;
@@ -32,13 +30,12 @@ public class EmployeePayRollService implements InterfaceEmployeePayRollService{
     }
     public EmployeePayRollData updateEmployeePayRollData(int empId,Employee emp){
        EmployeePayRollData empData=this.getEmployeePayRollDataById(empId);
-       empData.setName(emp.name);
-       empData.setSalary(emp.salary);
-       employeeList.set(empId-1,empData);
-       return empData;
+       empData.updateEmployeePayRollData(emp);
+       return employeePayRollRepository.save(empData);
     }
     public void deleteEmployeePayRollData(int empId){
-        employeeList.remove(empId-1);
+        EmployeePayRollData empData=this.getEmployeePayRollDataById(empId);
+        employeePayRollRepository.delete(empData);
     }
 
 }
